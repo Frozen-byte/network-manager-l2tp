@@ -624,6 +624,9 @@ nm_l2tp_config_write (NML2tpPlugin *plugin,
 	write_config_option (ipsec_fd, 		"  authby=secret\n"
 						"  keyingtries=0\n"
 						"  left=%%defaultroute\n"
+						"  keyexchange=ikev1\n"
+						"  fragmentation=yes\n"
+						"  ike=3des-sha1-modp1024\n"
 						"  leftprotoport=udp/l2tp\n"
 						"  rightprotoport=udp/l2tp\n");
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_L2TP_KEY_IPSEC_GROUP_NAME);
@@ -633,9 +636,9 @@ nm_l2tp_config_write (NML2tpPlugin *plugin,
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_L2TP_KEY_IPSEC_GATEWAY_ID);
 	if(value)write_config_option (ipsec_fd, "  rightid=@%s\n", value);
 
-	if (!priv->is_libreswan) {
-		write_config_option (ipsec_fd,	"  keyexchange=ikev1\n");
-	}
+	// if (!priv->is_libreswan) {
+	// 	write_config_option (ipsec_fd,	"  keyexchange=ikev1\n");
+	// }
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_L2TP_KEY_IPSEC_PFS);
 	if(value)write_config_option (ipsec_fd, "  pfs=%s\n", value);
 
@@ -769,7 +772,7 @@ nm_l2tp_config_write (NML2tpPlugin *plugin,
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_L2TP_KEY_MTU);
 	if (value) write_config_option (pppopt_fd, "mtu %s\n", value);
 
-	/*	
+	/*
 	if (priv && priv->use_cert) {
 		write_config_option (pppopt_fd, "cert \"%s\"\n", nm_setting_vpn_get_data_item (s_vpn, NM_L2TP_KEY_CERT_PUB));
 		write_config_option (pppopt_fd, "ca \"%s\"\n", nm_setting_vpn_get_data_item (s_vpn, NM_L2TP_KEY_CERT_CA));
