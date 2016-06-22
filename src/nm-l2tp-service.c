@@ -86,7 +86,7 @@ typedef struct {
 #define NM_L2TP_PLUGIN_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), NM_TYPE_L2TP_PLUGIN, NML2tpPluginPrivate))
 
 #define NM_L2TP_PPPD_PLUGIN PLUGINDIR "/nm-l2tp-pppd-plugin.so"
-#define NM_L2TP_WAIT_PPPD 10000 /* 10 seconds */
+#define NM_L2TP_WAIT_PPPD 120000 /* 2 minutes */
 #define L2TP_SERVICE_SECRET_TRIES "l2tp-service-secret-tries"
 
 typedef struct {
